@@ -55,9 +55,8 @@ describe SitePrism::ElementChecker do
         end
 
         it 'sends an error to the SitePrism logger' do
-          SitePrism.configure { |config| config.enable_logging = true }
-
           log_messages = capture_stdout do
+            SitePrism.configure { |config| config.log_level = :DEBUG }
             subject
           end
 
@@ -77,16 +76,12 @@ describe SitePrism::ElementChecker do
     let(:page) { CSSPage.new }
     let(:klass) { CSSPage }
 
-    subject { page }
-
     it_behaves_like 'a page'
   end
 
   context 'on an XPath Page' do
     let(:page) { XPathPage.new }
     let(:klass) { XPathPage }
-
-    subject { page }
 
     it_behaves_like 'a page'
   end
